@@ -1,4 +1,4 @@
-unction New-ZorusQuery {
+function New-ZorusQuery {
     param (
         $body,
         $URI,
