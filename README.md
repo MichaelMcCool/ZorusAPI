@@ -6,6 +6,9 @@ Step 2) Generate an API key as documented.
 
 Use the following script to set everyting up:
 
+    Install-Module -name ZorusAPI
+    Import-Module -name ZorusAPI
+    
     $APIKey='<api key>'
     
     ## No more changes required below this line.
