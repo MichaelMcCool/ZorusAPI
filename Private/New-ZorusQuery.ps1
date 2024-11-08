@@ -16,8 +16,14 @@ function New-ZorusQuery {
     $retry=$false
     $retrycount=0
     do{
-        $Response=Invoke-WebRequest -Method Post -Headers $script:headers -body $Body -Uri $URI
-        switch ($response.StatusCode) {
+        try{
+            $response=Invoke-WebRequest -Method Post -Headers $script:headers -body $Body -Uri $URI
+            $Errorcode=$response.statuscode
+        }
+        catch {
+            $Errorcode=$_.Exception.Response.statuscode.Value__
+        }
+        switch ($Errorcode) {
             200 {
                 # Everything successful. Exit Loop.
                 $retry=$false
@@ -28,8 +34,12 @@ function New-ZorusQuery {
             406 {
                 throw "406 : Invalid Query. Check request body."
             }
+            409 {
+                # This is a conflict status returned when creating deployment tokens with name already used.
+                throw "409 : Conflict. An existing entry with that name already exists."
+            }
             default {
-                write-host "StatusCode $_ recieved. Waiting 5 seconds and retrying request." -ForegroundColor Yellow
+                write-host "StatusCode $Errorcode recieved. Waiting 5 seconds and retrying request." -ForegroundColor Yellow
                 $retry=$true
                 start-sleep 5
             }
