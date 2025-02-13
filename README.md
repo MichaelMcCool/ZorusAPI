@@ -10,18 +10,10 @@ Use the following script to set everyting up:
     Import-Module -name ZorusAPI
     
     $APIKey='<api key>'
-    
-    ## No more changes required below this line.
-    $BaseURL='https://developer.zorustech.com'
-    $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-    $headers.Add('Content-Type','application/json')
-    $headers.Add('Authorization',"Impersonation $APIKey")
-    $headers.Add('Zorus-Api-Version','1.0')
-    $headers.Add('accept','text/plain')
+    Set-ZorusAPIKey $APIKey
 
-    Set-ZorusBaseURL $BaseURL
-    Set-ZorusHeaders $Headers
-    ## End header setup configuration.
+    $BaseURL='https://developer.zorustech.com' # Optional - Can be omitted.
+    Set-ZorusBaseURL $BaseURL # Optional - Can be omitted.
 
     
     # Sample command and output.

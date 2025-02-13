@@ -9,7 +9,7 @@ function Get-ZorusPolicy {
         $CreatedAfter,
         $CreatedBefore
     )
-    $URI=$script:BaseURL+'/api/policies/search'
+    $URI='/api/policies/search'
     
     $results=[System.Collections.ArrayList]@()
     $page=0

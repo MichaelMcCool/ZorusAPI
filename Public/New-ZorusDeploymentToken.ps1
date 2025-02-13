@@ -4,7 +4,7 @@ function New-ZorusDeploymentToken {
         [Parameter(Mandatory=$true)]$GroupUuid,
         [Parameter(Mandatory=$true)]$Name
     )
-    $URI=$script:BaseURL+'/api/deployment-tokens'
+    $URI='/api/deployment-tokens'
     $body=@{}
     $body.add('groupUuid', $GroupUuid)
     $body.add('name',$Name)

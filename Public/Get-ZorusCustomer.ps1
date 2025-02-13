@@ -7,7 +7,8 @@ function Get-ZorusCustomer {
         $CreatedAfter,
         $CreatedBefore
     )
-    $URI=$script:BaseURL+'/api/customers/search'
+
+    $URI='/api/customers/search'
     
     $results=[System.Collections.ArrayList]@()
     $page=0

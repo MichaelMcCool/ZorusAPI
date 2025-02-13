@@ -9,7 +9,7 @@ function Get-ZorusGroup {
         [Boolean]$SyncOptionsToMembers,
         [Boolean]$SyncAddonsToMembers
     )
-    $URI=$script:BaseURL+'/api/groups/search'
+    $URI='/api/groups/search'
     
     $results=[System.Collections.ArrayList]@()
     $page=0

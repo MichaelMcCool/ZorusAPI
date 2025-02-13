@@ -9,7 +9,7 @@ function Get-ZorusEndpoint {
         $CreatedAfter,
         $CreatedBefore
     )
-    $URI=$script:BaseURL+'/api/endpoints/search'
+    $URI='/api/endpoints/search'
     
     $results=[System.Collections.ArrayList]@()
     $page=0

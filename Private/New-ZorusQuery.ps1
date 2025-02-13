@@ -4,11 +4,15 @@ function New-ZorusQuery {
         $URI,
         $method
     )
+
+    # If the value is not set, use the default of https://developer.zorustech.com.
     if ([string]::IsNullOrWhiteSpace($script:BaseURL)){
-        throw "BaseURL value not configured. Use 'Set-ZorusBaseURL `"https://developer.zorustech.com`"' to configure."
+        $BaseURL='https://developer.zorustech.com'
+        Set-ZorusBaseURL $BaseURL
     }
+    $URI=$script:BaseURL+$URI
     if ($null -eq $script:Headers){
-        throw "Headers value not configured. See README.md to configure."
+        throw "Headers/APIKey value not configured. See README.md to configure."
     }
     if (($body.gettype()).name -eq 'HashTable'){
         $body=$body | ConvertTo-Json -depth 6

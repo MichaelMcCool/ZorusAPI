@@ -65,6 +65,7 @@
     FunctionsToExport = @(
         'Set-ZorusBaseURL',
         'Set-ZorusHeaders',
+        'Set-ZorusAPIKey',
         'Get-ZorusCustomer',
         'Get-ZorusPolicy',
         'Get-ZorusGroup',
