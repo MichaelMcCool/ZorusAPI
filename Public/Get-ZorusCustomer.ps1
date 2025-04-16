@@ -32,7 +32,7 @@ function Get-ZorusCustomer {
             $body.add('createdAfter',$CreatedAfter)
         }
         if (!([string]::IsNullOrWhiteSpace($CreatedBefore))){
-            $body.add('createdAfter',$CreatedBefore)
+            $body.add('createdBefore',$CreatedBefore)
         }
 
         $data=New-ZorusQuery -method POST -body $Body -uri $URI
