@@ -5,7 +5,7 @@
     RootModule = 'ZorusAPI.psm1'
     
     # Version number of this module.
-    ModuleVersion = '0.6'
+    ModuleVersion = '0.7'
     
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -20,7 +20,7 @@
     CompanyName = 'Michael McCool'
     
     # Copyright statement for this module
-    Copyright = '(c)2024 Michael McCool'
+    Copyright = '(c)2025 Michael McCool'
     
     # Description of the functionality provided by this module
     Description = 'This module allows you to connect to the Zorus API via PowerShell.'
@@ -70,7 +70,8 @@
         'Get-ZorusPolicy',
         'Get-ZorusGroup',
         'Get-ZorusEndpoint',
-        'New-ZorusDeploymentToken'
+        'New-ZorusDeploymentToken',
+        'Set-ZorusEndpoint'
     )
     
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

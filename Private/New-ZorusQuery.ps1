@@ -27,20 +27,41 @@ function New-ZorusQuery {
         catch {
             $Errorcode=$_.Exception.Response.statuscode.Value__
         }
+        $CurrentVerbose=$VerbosePreference
+        $VerbosePreference='Continue'
         switch ($Errorcode) {
             200 {
                 # Everything successful. Exit Loop.
                 $retry=$false
             }
+            202 {
+                # Request was accepted. Exit Loop.
+                $retry=$false
+            }
             401 {
                 throw "401 : Unauthorized. Check API key."
+            }
+            404 {
+                # Not found
+                throw "404 : Not Found."
             }
             406 {
                 throw "406 : Invalid Query. Check request body."
             }
             409 {
-                # This is a conflict status returned when creating deployment tokens with name already used.
-                throw "409 : Conflict. An existing entry with that name already exists."
+                # Minimize the impact of setting an endpoint to the same state it currently has.
+                if ($URI -match "/api/endpoints/"){
+                    write-verbose "The endpoint is already in the selected state."
+                }
+                elseif ($URI -match "/api/deployment-token"){
+                    # This is a conflict status returned when creating deployment tokens with name already used.
+                    throw "409: A deployment token with that name already exists."
+                }
+                else {
+                    # Any other use case of the 409 error response that isn't otherwise known.
+                    throw "409 : Conflict."
+                }
+                
             }
             default {
                 write-host "StatusCode $Errorcode recieved. Waiting 5 seconds and retrying request." -ForegroundColor Yellow
@@ -48,6 +69,7 @@ function New-ZorusQuery {
                 start-sleep 5
             }
         }
+        $VerbosePreference=$CurrentVerbose
         if ($retry){
             $retrycount++
         }
@@ -57,5 +79,7 @@ function New-ZorusQuery {
         }
     }
     until ($retry -eq $false)
-    $Response.content | ConvertFrom-Json
+    # Moved this to a try/catch in order to work with the verbose only errors for endpoint state changes.
+    try {$Response.content | ConvertFrom-Json -erroraction stop}
+    catch {$response}
 }
