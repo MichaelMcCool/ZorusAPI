@@ -21,7 +21,7 @@ function New-ZorusQuery {
     $retrycount=0
     do{
         try{
-            $response=Invoke-WebRequest -Method Post -Headers $script:headers -body $Body -Uri $URI
+            $response=Invoke-WebRequest -Method Post -Headers $script:headers -body $Body -Uri $URI -UseBasicParsing
             $Errorcode=$response.statuscode
         }
         catch {
